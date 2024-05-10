@@ -1,13 +1,3 @@
-一个平台语言的开发优秀与否，取决于两个维度，一是语言的设计，这是语言天然的优劣，另一个测试程序员。
-
-后者决定的东西太多太多了，如果后者对于某个平台类型的语言开发使用不当，那将导致非常严重的后果，屎山的形成、开发排期的无限增大、稳定性差到太平洋等等问题。
-
-我之前写过一个Fluter的项目，但是写时Flutter还没有发布正式版本，到今天Flutter已经成为一棵参天大树，无数的同僚前辈已经用Flutter密谋生计。这两天看了一下相关的语法、技术， 决定对其进行二次熟悉。
-
-从哪方面入手，成了我的第一个问题，看文档？记不住，看视频？ 没时间，做项目？没需求（相关的）。所以决定探究一下开篇的问题，如何在新语言领域做好开发。
-
-进来我一直在关注架构方面的技术，到没想着成为架构师（因为我太菜），只是想成为一个懂点架构的程序员，让自己的代码有良好的扩展性、维护性、可读性、健壮性，以此来洗涤自我心灵，让自己每天过的舒服点，**因为好的代码看起来确实会让人心情愉悦，让领导喜笑颜开，让钱包增厚那么一奶奶。**
-
 ### 一、 常见的Flutter 架构模式
 
 其实还是老生常谈的几个问题，**最终的目的就是： “高内聚，低耦合”，满足这个条件 让程序运行就可以了**。
@@ -37,44 +27,6 @@ MVC（Model-View-Controller）是一种软件设计架构，用于将应用程�
 在Flutter中 M无关紧要，只需要参与整个逻辑，让代码统一就可以了，封装一个对应的base，管理释放资源啊 公共数据也是可以的。
 
 #### 2.1 设计base
-
-首先使用命令在Flutter项目中创建一个base, 创建时按照Flutter的工程类型做好组件的职责选择：
-Flutter工程中，通常有以下几种工程类型，下面分别简单概述下：  
-**1. Flutter Application**  
-标准的Flutter App工程，包含标准的Dart层与Native平台层  
-**2. Flutter Module**  
-Flutter组件工程，仅包含Dart层实现，Native平台层子工程为通过Flutter自动生成的隐藏工程  
-**3. Flutter Plugin**  
-Flutter平台插件工程，包含Dart层与Native平台层的实现  
-**4. Flutter Package**  
-Flutter纯Dart插件工程，仅包含Dart层的实现，往往定义一些公共Widget
-
-很明显 我们需要的base 创建为package 即可：
-```
- flutter create -t package base 
-```
-
-然后在项目的pubspec.yaml 中的
-
-```
-dependencies:
-  flutter:
-    sdk: flutter
-  base: //此处添加配置
-    path: ../base
-```
-
-- base 结构
-
-![image.png](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/8ee7b2ef3fff41e784fe48f1457f1e27~tplv-k3u1fbpfcp-jj-mark:0:0:0:0:q75.image#?w=1532&h=1588&s=221491&e=png&b=fdfafa)
-
-View部分按照Flutter的常用开发模式（可变状态组件）设计为state + view 组合成View
-
-他们的关系如下图：
-
-![image.png](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/e665bb66f03d447ea3f12b867b56310e~tplv-k3u1fbpfcp-jj-mark:0:0:0:0:q75.image#?w=2018&h=1208&s=105726&e=png&b=ffffff)
-
-
 代码：
 
 ##### 2.1.1 base 代码
@@ -134,6 +86,7 @@ abstract class MvcBaseView<C extends MvcBaseController> extends StatefulWidget {
 ```
 abstract class MvcBaseState<M extends MvcBaseModel, T extends StatefulWidget>
     extends State<T> {
+    // 使用流进行通信数据更新
   late StreamController<M> streamController;
   late StreamSubscription<M> _streamSubscription;
 
@@ -275,15 +228,3 @@ class CounterController extends MvcBaseController<CounterModel> {
 }
 ```
 
-### 四： 总结
-通过实现基于MVC架构的Flutter应用程序，我们可以看到以下几点：
-
-1.  **模型（Model）的作用：** 模型负责管理应用程序的数据状态和行为。在我们的示例中，CounterModel负责管理计数器的数值状态，并提供了增加计数器数值的方法。
-1.  **控制器（Controller）的作用：** 控制器是模型和视图之间的中介，负责处理用户输入并更新模型数据。在示例中，CounterController接收用户点击事件，并调用CounterModel的方法来增加计数器数值，然后通知视图更新数据。
-1.  **视图（View）的作用：** 视图是应用程序的用户界面部分，负责向用户展示数据和接收用户输入。在示例中，CounterView负责展示计数器的数值，并提供了一个按钮来触发增加计数器数值的操作。
-1.  **MVC架构的优势：** MVC架构能够将应用程序的逻辑部分与用户界面部分分离，使得代码结构更清晰，易于维护和扩展。通过单独管理模型、视图和控制器，我们可以更好地组织代码，并实现高内聚、低耦合的设计原则。
-1.  **基础组件的设计：** 我们设计了一个基础组件库，包括模型（MvcBaseModel）、控制器（MvcBaseController）、视图（MvcBaseView）和视图状态（MvcBaseState）。这些基础组件可以帮助我们快速构建符合MVC架构的Flutter应用程序，并实现模块化、可复用的代码结构。
-
-通过理解和应用MVC架构，我们可以更好地组织和管理Flutter应用程序的代码，提高代码质量和开发效率。同时，我们也可以通过学习和探索其他架构模式，如MVVM、Bloc、Redux等，来丰富我们的架构设计思路，进一步提升应用程序的性能和用户体验。
-
-后续将探索MVVM等其他架构模式。
