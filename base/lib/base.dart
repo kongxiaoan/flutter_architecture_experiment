@@ -1,7 +1,6 @@
 library base;
 
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+export 'mvc/mvc_base_view.dart';
+export 'mvc/mvc_base_controller.dart';
+export 'mvc/mvc_base_model.dart';
+export 'mvc/mvc_base_state.dart';
