@@ -1,12 +1,9 @@
 import 'package:base/base.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_architecture_experiment/controller/home_page_controller.dart';
-import 'package:flutter_architecture_experiment/controller/main_page_controller.dart';
 import 'package:flutter_architecture_experiment/model/home_page_entity.dart';
-import 'package:flutter_architecture_experiment/model/main_page_entity.dart';
 
-import 'home/discovert_page.dart';
+import 'home/discover_page.dart';
 
 class HomePage extends MvcBaseView<HomePageController> {
   @override
@@ -64,5 +61,5 @@ class _HomePageState extends MvcBaseState<HomePageEntity, HomePage> {
   }
 
   List<Widget> _buildPages() =>
-      <Widget>[DiaconvertPage(), DiaconvertPage(), DiaconvertPage()];
+      <Widget>[DiscoverPage(), DiscoverPage(), DiscoverPage()];
 }
