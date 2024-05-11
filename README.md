@@ -65,9 +65,9 @@ abstract class MvcBaseController<M extends MvcBaseModel> {
 3. view. (view)
 ```
 abstract class MvcBaseView<C extends MvcBaseController> extends StatefulWidget {
-  final C controller;
+  late C controller;
 
-  const MvcBaseView({Key? key, required this.controller});
+  MvcBaseView({super.key});
 
   @override
   State<StatefulWidget> createState() {
@@ -78,6 +78,8 @@ abstract class MvcBaseView<C extends MvcBaseController> extends StatefulWidget {
   }
 
   MvcBaseState create();
+  
+  C createController();
 }
 ```
 

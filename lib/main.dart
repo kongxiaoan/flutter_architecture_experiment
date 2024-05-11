@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_architecture_experiment/simple_mvc/controller/CounterController.dart';
-import 'package:flutter_architecture_experiment/simple_mvc/view/CounterView.dart';
+import 'package:flutter_architecture_experiment/controller/splash_page_controller.dart';
+import 'package:flutter_architecture_experiment/view/splash_page.dart';
 
 void main() => runApp(MyApp());
 
@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: CounterView(controller: CounterController()),
+      home: SplashPage(),
     );
   }
 }

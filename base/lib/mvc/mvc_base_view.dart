@@ -5,9 +5,11 @@ import 'package:base/mvc/mvc_base_controller.dart';
 import 'package:flutter/cupertino.dart';
 
 abstract class MvcBaseView<C extends MvcBaseController> extends StatefulWidget {
-  final C controller;
+  late C controller;
 
-  const MvcBaseView({Key? key, required this.controller});
+  MvcBaseView({super.key}) {
+    controller = createController();
+  }
 
   @override
   State<StatefulWidget> createState() {
@@ -18,4 +20,6 @@ abstract class MvcBaseView<C extends MvcBaseController> extends StatefulWidget {
   }
 
   MvcBaseState create();
+
+  C createController();
 }
