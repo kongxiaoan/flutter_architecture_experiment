@@ -65,3 +65,8 @@ dart_lean/pubspec.lock
 dart_lean/**/doc/api/
 dart_lean/.dart_tool/
 dart_lean/build/
+
+redux_demo/pubspec.lock
+redux_demo/**/doc/api/
+redux_demo/.dart_tool/
+redux_demo/build/

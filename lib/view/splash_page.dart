@@ -1,11 +1,12 @@
 import 'package:base/base.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_architecture_experiment/controller/main_page_controller.dart';
 import 'package:flutter_architecture_experiment/controller/splash_page_controller.dart';
 import 'package:flutter_architecture_experiment/model/splash_page_entity.dart';
 import 'package:flutter_architecture_experiment/view/main_page.dart';
 
 class SplashPage extends MvcBaseView<SplashPageController> {
+  SplashPage({super.key});
+
   @override
   SplashPageController createController() => SplashPageController();
 

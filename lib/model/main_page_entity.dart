@@ -1,9 +1,4 @@
-import 'dart:collection';
-import 'dart:ffi';
-
 import 'package:base/base.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 
 class MainPageEntity extends MvcBaseModel {
   Map<String, String> bottomNavMap = {

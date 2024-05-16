@@ -1,7 +1,5 @@
 import 'dart:io';
-import 'dart:collection';
 
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 
 class HttpRequest {
@@ -47,8 +45,8 @@ class HttpRequest {
   ///[ option] 配置
   static request(url, params, Map<String, String>? header, Options option,
       {noTip = false}) async {
-    Dio _dio = Dio();
-    return await _dio.get(url);
+    Dio dio = Dio();
+    return await dio.get(url);
   }
 //没有网络
 //   var connectivityResult = await (Connectivity().checkConnectivity());

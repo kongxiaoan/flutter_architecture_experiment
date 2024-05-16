@@ -1,12 +1,19 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_architecture_experiment/model/discover_page_entity.dart';
+import 'package:flutter_architecture_experiment/video/video_layer_host.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoPlayerScreen extends StatefulWidget {
-  const VideoPlayerScreen({super.key});
+  final DiscoverPageEntity entity;
+
+  const VideoPlayerScreen({required this.entity});
 
   @override
   State<VideoPlayerScreen> createState() => _VideoPlayerScreenState();
+
+  DiscoverPageEntity getDataSource() => entity;
 }
 
 class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
@@ -16,23 +23,44 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   @override
   void initState() {
     super.initState();
-
     // Create and store the VideoPlayerController. The VideoPlayerController
     // offers several different constructors to play videos from assets, files,
     // or the internet.
-    _controller = VideoPlayerController.networkUrl(
-      Uri.parse(
-        'http://vjs.zencdn.net/v/oceans.mp4',
-      ),
-    );
-    print("播放地址 http://vjs.zencdn.net/v/oceans.mp4");
+    print("widget = ${widget.entity.toString()}");
+    _controller = VideoPlayerController.file(File(widget.entity.url));
     // Initialize the controller and store the Future for later use.
     try {
-      _initializeVideoPlayerFuture = _controller.initialize();
+      _initializeVideoPlayerFuture = _controller.initialize().then((value) => {
+            setState(() {
+              _controller.play();
+            })
+          });
     } catch (e) {
       print('Failed to initialize video player: $e');
     }
 
+    // 添加播放状态变化的监听器
+    _controller.addListener(() {
+      if (_controller.value.isPlaying) {
+        // 当视频处于播放状态时执行的操作
+        print('视频正在播放');
+      } else if (!_controller.value.isPlaying) {
+        // 当视频处于暂停状态时执行的操作
+        print('视频已暂停');
+      } else if (_controller.value.isBuffering) {
+        // 当视频处于缓冲状态时执行的操作
+        print('视频正在缓冲');
+      } else if (_controller.value.isCompleted) {
+        // 当视频播放完成时执行的操作
+        print('视频播放完成');
+      }
+    });
+
+    // _controller.initialize().then((_) {
+    //   // Ensure the first frame is shown after the video is initialized,
+    //   // even before the play button has been pressed.
+    //   setState(() {});
+    // });
     // Use the controller to loop the video.
     _controller.setLooping(true);
   }
@@ -56,7 +84,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
           print("视频播放----> ${snapshot.connectionState}");
           if (snapshot.hasError) {
             print("error = ${snapshot.error}");
-            return Center(
+            return const Center(
               child: Text('播放错误'),
             );
           }
@@ -80,25 +108,6 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
             );
           }
         },
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Wrap the play or pause in a call to `setState`. This ensures the
-          // correct icon is shown.
-          setState(() {
-            // If the video is playing, pause it.
-            if (_controller.value.isPlaying) {
-              _controller.pause();
-            } else {
-              // If the video is paused, play it.
-              _controller.play();
-            }
-          });
-        },
-        // Display the correct icon depending on the state of the player.
-        child: Icon(
-          _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
-        ),
       ),
     );
   }

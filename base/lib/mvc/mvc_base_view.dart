@@ -1,7 +1,5 @@
-import 'dart:async';
 
 import 'package:base/base.dart';
-import 'package:base/mvc/mvc_base_controller.dart';
 import 'package:flutter/cupertino.dart';
 
 abstract class MvcBaseView<C extends MvcBaseController> extends StatefulWidget {

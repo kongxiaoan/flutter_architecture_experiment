@@ -6,6 +6,7 @@ import 'package:flutter_architecture_experiment/view/home_page.dart';
 import 'package:flutter_architecture_experiment/view/list_page.dart';
 import 'package:flutter_architecture_experiment/view/message_page.dart';
 
+@immutable
 class MainPage extends MvcBaseView<MainPageController> {
   MainPage({super.key});
 
@@ -49,9 +50,7 @@ class _MainPageState extends MvcBaseState<MainPageEntity, MainPage> {
   @override
   void observer(MainPageEntity event) {}
 
-  /**
-   * 切换pageView&更新索引
-   */
+  /// 切换pageView&更新索引
   void _onTapBottomItem(position) {
     _ctrl.jumpToPage(position);
 
@@ -80,5 +79,6 @@ class _MainPageState extends MvcBaseState<MainPageEntity, MainPage> {
     return list;
   }
 
-  List<Widget> _buildPages() => <Widget>[HomePage(), ListPage(), MessagePage()];
+  List<Widget> _buildPages() =>
+      <Widget>[HomePage(), const ListPage(), const MessagePage()];
 }

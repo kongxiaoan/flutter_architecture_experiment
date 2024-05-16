@@ -1,6 +1,5 @@
 library dart_lean;
 
-import 'dart:isolate';
 import 'dart:async';
 
 import 'package:dart_lean/EventBus.dart';
@@ -8,7 +7,7 @@ import 'package:dart_lean/EventBus.dart';
 void testIsolate() async {
   print("Main function start");
 
-  Timer(Duration(seconds: 2), () {
+  Timer(const Duration(seconds: 2), () {
     print("Event handler");
   });
   // 添加微任务
@@ -22,7 +21,7 @@ void testIsolate() async {
   });
 
   // 添加异步任务
-  Future.delayed(Duration(seconds: 1), () {
+  Future.delayed(const Duration(seconds: 1), () {
     print("Async task");
   });
 
@@ -30,7 +29,7 @@ void testIsolate() async {
 }
 
 request() async {
-  await Future.delayed(Duration(seconds: 2));
+  await Future.delayed(const Duration(seconds: 2));
   return "ok!";
 }
 
@@ -55,7 +54,7 @@ void main() {
 }
 
 class Test {
-  String _name;
+  final String _name;
 
   String get name => _name;
 

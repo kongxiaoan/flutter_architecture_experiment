@@ -1,5 +1,4 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'dart:io';
 
 class NetworkUtil {
   static networkType() async {

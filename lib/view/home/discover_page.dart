@@ -1,5 +1,4 @@
 import 'package:base/base.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_architecture_experiment/controller/discover_page_controller.dart';
 import 'package:flutter_architecture_experiment/model/discover_page_entity.dart';
@@ -7,6 +6,8 @@ import 'package:flutter_architecture_experiment/model/discover_page_entity.dart'
 import '../discover_list_item_video_page.dart';
 
 class DiscoverPage extends MvcBaseView<DiscoverPageController> {
+  DiscoverPage({super.key});
+
   @override
   MvcBaseState<MvcBaseModel, StatefulWidget> create() => _DiscoverPage();
 
@@ -22,7 +23,7 @@ class _DiscoverPage extends MvcBaseState<DiscoverPageEntity, DiscoverPage> {
         builder: (BuildContext context,
             AsyncSnapshot<List<DiscoverPageEntity>> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           } else if (snapshot.hasError) {
@@ -31,7 +32,7 @@ class _DiscoverPage extends MvcBaseState<DiscoverPageEntity, DiscoverPage> {
             );
           } else {
             if (snapshot.data == null || snapshot.data!.isEmpty) {
-              return Center(
+              return const Center(
                 child: Text('当前没有数据～'),
               );
             }

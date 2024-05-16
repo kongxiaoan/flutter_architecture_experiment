@@ -1,7 +1,7 @@
 import 'dart:async';
 
 class EventBus {
-  StreamController _streamController;
+  final StreamController _streamController;
 
   StreamController get streamController => _streamController;
 

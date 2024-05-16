@@ -6,6 +6,8 @@ import 'package:flutter_architecture_experiment/model/home_page_entity.dart';
 import 'home/discover_page.dart';
 
 class HomePage extends MvcBaseView<HomePageController> {
+  HomePage({super.key});
+
   @override
   MvcBaseState<MvcBaseModel, StatefulWidget> create() => _HomePageState();
 
@@ -20,10 +22,13 @@ class _HomePageState extends MvcBaseState<HomePageEntity, HomePage> {
         home: DefaultTabController(
             length: _buildPages().length,
             child: Scaffold(
+              extendBodyBehindAppBar: true,
               appBar: AppBar(
                 toolbarHeight: 0,
+                elevation: 0,
+                backgroundColor: Colors.transparent,
                 bottom: PreferredSize(
-                    preferredSize: Size.fromHeight(48),
+                    preferredSize: const Size.fromHeight(48),
                     child: SizedBox(
                       width: MediaQuery.of(context).size.width,
                       child: Stack(
@@ -34,8 +39,9 @@ class _HomePageState extends MvcBaseState<HomePageEntity, HomePage> {
                               right: 15,
                               child: IconButton(
                                   alignment: Alignment.centerRight,
+                                  color: Colors.white,
                                   onPressed: () {},
-                                  icon: Icon(Icons.search_rounded)))
+                                  icon: const Icon(Icons.search_rounded)))
                         ],
                       ),
                     )),
@@ -51,9 +57,10 @@ class _HomePageState extends MvcBaseState<HomePageEntity, HomePage> {
 
   PreferredSizeWidget _buildHomeTabBar() {
     return const TabBar(
-      labelStyle: TextStyle(fontSize: 14),
-      labelColor: Colors.black,
-      unselectedLabelColor: Colors.black45,
+      labelStyle: TextStyle(fontSize: 18),
+      labelColor: Colors.white,
+      unselectedLabelColor: Colors.white,
+      indicatorColor: Colors.white,
       dividerHeight: 0,
       tabAlignment: TabAlignment.center,
       tabs: [Tab(text: '发现'), Tab(text: '首页'), Tab(text: '关注')],
