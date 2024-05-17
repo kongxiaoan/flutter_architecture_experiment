@@ -70,3 +70,9 @@ redux_demo/pubspec.lock
 redux_demo/**/doc/api/
 redux_demo/.dart_tool/
 redux_demo/build/
+
+
+mvvm_demo/pubspec.lock
+mvvm_demo/**/doc/api/
+mvvm_demo/.dart_tool/
+mvvm_demo/build/
