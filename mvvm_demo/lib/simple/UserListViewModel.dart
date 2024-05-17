@@ -8,9 +8,7 @@ import 'UserListRepository.dart';
 class UserListViewModel extends BaseViewModel<UserListRepository> {
   UserListViewModel(super.repository);
 
-  StreamController controller = StreamController<List<String>>.broadcast();
-
   getUserLists() {
-    return repository.requestUsers().then((value) => controller.add(value));
+    return repository.requestUsers();
   }
 }

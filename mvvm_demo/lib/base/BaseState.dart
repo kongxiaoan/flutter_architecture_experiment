@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:mvvm_demo/base/BaseStatefulWidget.dart';
 import 'package:mvvm_demo/base/BaseViewModel.dart';
 import 'package:provider/provider.dart';
 
